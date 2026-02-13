@@ -1,0 +1,95 @@
+/* Predictive search component styles */
+
+.predictive-search {
+  display: none;
+}
+
+.predictive-search[data-predictive-search-results] {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: rgb(var(--white));
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  max-height: 500px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.predictive-search__heading {
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 1.5rem 2rem;
+  margin: 0;
+  background-color: rgba(var(--black), 0.05);
+}
+
+.predictive-search__results-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.predictive-search__item {
+  display: block;
+  border-bottom: 1px solid rgba(var(--black), 0.1);
+}
+
+.predictive-search__item-link {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.5rem 2rem;
+  text-decoration: none;
+  color: rgb(var(--black));
+  transition: background-color 0.3s ease;
+}
+
+.predictive-search__item-link:hover {
+  background-color: rgba(var(--gold), 0.1);
+}
+
+.predictive-search__item-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.predictive-search__item-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.predictive-search__item-vendor {
+  font-size: 1.2rem;
+  color: rgba(var(--black), 0.6);
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+
+.predictive-search__item-heading {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.predictive-search__item-price {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: rgb(var(--gold));
+}
+
+.predictive-search__loading {
+  padding: 2rem;
+  text-align: center;
+  color: rgba(var(--black), 0.6);
+}
+
+.predictive-search__no-results {
+  padding: 2rem;
+  text-align: center;
+  color: rgba(var(--black), 0.6);
+}
