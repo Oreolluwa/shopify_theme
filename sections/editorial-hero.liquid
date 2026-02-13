@@ -201,10 +201,10 @@
           height: image_height,
           sizes: sizes,
           widths: '375, 750, 1100, 1500, 1780, 2000, 3000',
-          alt: section.settings.image.alt | escape
+          alt: section.settings.image.alt | default: section.settings.heading | escape
       }}
     {%- elsif section.settings.video_url != blank -%}
-      <video autoplay muted loop playsinline>
+      <video autoplay muted loop playsinline aria-label="{{ section.settings.heading | escape | default: 'Hero video' }}">
         <source src="{{ section.settings.video_url }}" type="video/mp4">
       </video>
     {%- else -%}

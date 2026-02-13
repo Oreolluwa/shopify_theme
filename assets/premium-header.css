@@ -239,6 +239,11 @@
   cursor: pointer;
 }
 
+.mobile-menu-drawer__header:focus {
+  outline: 2px solid rgba(var(--color-base-accent-1), 1);
+  outline-offset: -2px;
+}
+
 .mobile-menu-drawer__close-button {
   background: none;
   border: none;
@@ -246,6 +251,11 @@
   padding: var(--spacing-xs);
   color: rgba(var(--color-base-text), 0.8);
   transition: color var(--transition-fast);
+}
+
+.mobile-menu-drawer__close-button:focus {
+  outline: 2px solid rgba(var(--color-base-accent-1), 1);
+  outline-offset: 2px;
 }
 
 .mobile-menu-drawer__close-button:hover {

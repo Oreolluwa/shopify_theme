@@ -246,9 +246,9 @@
                 {%- endif -%}
 
                 {%- if block.settings.link != blank -%}
-                  <a href="{{ block.settings.link }}" class="lifestyle-grid__item-link">
+                  <a href="{{ block.settings.link }}" class="lifestyle-grid__item-link" aria-label="{{ block.settings.title | default: 'View more' | append: ' - ' | append: block.settings.text }}">
                     {{ block.settings.link_text | default: 'Explore' }}
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
                   </a>

@@ -645,15 +645,6 @@ img {
   display: block;
 }
 
-img[loading="lazy"] {
-  opacity: 0;
-  transition: opacity var(--transition-base);
-}
-
-img[loading="lazy"].loaded {
-  opacity: 1;
-}
-
 /* Loading States */
 .loading {
   opacity: 0.6;
