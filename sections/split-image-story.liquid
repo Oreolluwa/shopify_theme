@@ -1,0 +1,443 @@
+{% comment %}
+  Split Image Story Section
+  
+  Design Philosophy:
+  - Editorial layout with image and rich narrative content side-by-side
+  - Asymmetric spacing for visual interest
+  - Perfect for brand storytelling, about pages, or feature highlights
+  - Alternating left/right image positions
+  
+  Use Cases:
+  - Brand heritage stories
+  - Winemaker profiles
+  - Production process narratives
+  - Sustainability initiatives
+{% endcomment %}
+
+{%- liquid
+  assign image_position = section.settings.image_position | default: 'left'
+  assign content_alignment = section.settings.content_alignment | default: 'left'
+  assign enable_animations = section.settings.enable_animations
+-%}
+
+{%- style -%}
+  .split-story-{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+    padding: var(--spacing-2xl) 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .split-story-{{ section.id }} {
+      padding: var(--spacing-xl) 0;
+    }
+  }
+
+  .split-story__grid {
+    display: grid;
+    gap: var(--spacing-xl);
+    align-items: {{ section.settings.vertical_alignment }};
+  }
+
+  @media screen and (min-width: 750px) {
+    .split-story__grid {
+      grid-template-columns: {% if image_position == 'right' %}1fr {{ section.settings.image_width }}%{% else %}{{ section.settings.image_width }}% 1fr{% endif %};
+      gap: var(--spacing-2xl);
+    }
+  }
+
+  .split-story__image-wrapper {
+    position: relative;
+    overflow: hidden;
+    {% if section.settings.image_style == 'offset' %}
+      margin: {% if image_position == 'left' %}0 -4rem 0 0{% else %}0 0 0 -4rem{% endif %};
+    {% endif %}
+    {% if enable_animations %}
+      opacity: 0;
+      transform: translateX({% if image_position == 'left' %}-30px{% else %}30px{% endif %});
+      transition: all 0.8s ease;
+    {% endif %}
+  }
+
+  .split-story__image-wrapper.in-view {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  @media screen and (max-width: 749px) {
+    .split-story__image-wrapper {
+      margin: 0 !important;
+    }
+  }
+
+  .split-story__image {
+    width: 100%;
+    height: auto;
+    display: block;
+    {% if section.settings.image_style == 'rounded' %}
+      border-radius: 8px;
+    {% endif %}
+  }
+
+  .split-story__content {
+    {% if content_alignment == 'center' %}
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    {% elsif content_alignment == 'right' %}
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: center;
+    {% else %}
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    {% endif %}
+    padding: var(--spacing-md);
+    {% if enable_animations %}
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease 0.3s;
+    {% endif %}
+  }
+
+  .split-story__content.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media screen and (min-width: 750px) {
+    .split-story__content {
+      padding: var(--spacing-xl);
+    }
+  }
+
+  .split-story__eyebrow {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: {{ section.settings.eyebrow_color }};
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .split-story__heading {
+    font-size: clamp(2.8rem, 4vw, {{ section.settings.heading_size }}px);
+    font-weight: {{ section.settings.heading_weight }};
+    line-height: var(--leading-tight);
+    color: {{ section.settings.heading_color }};
+    margin-bottom: var(--spacing-md);
+    max-width: {{ section.settings.content_max_width }}px;
+  }
+
+  .split-story__text {
+    font-size: clamp(1.5rem, 2vw, {{ section.settings.text_size }}px);
+    line-height: var(--leading-relaxed);
+    color: {{ section.settings.text_color }};
+    margin-bottom: var(--spacing-lg);
+    max-width: {{ section.settings.content_max_width }}px;
+  }
+
+  .split-story__text p {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .split-story__text p:last-child {
+    margin-bottom: 0;
+  }
+
+  .split-story__button {
+    margin-top: var(--spacing-md);
+  }
+
+  /* Order for mobile */
+  @media screen and (max-width: 749px) {
+    .split-story__image-wrapper {
+      order: 1;
+    }
+    .split-story__content {
+      order: 2;
+    }
+  }
+{%- endstyle -%}
+
+<section class="split-story-{{ section.id }} section">
+  <div class="page-width">
+    <div class="split-story__grid">
+      <div class="split-story__image-wrapper" data-aos>
+        {%- if section.settings.image != blank -%}
+          {%- liquid
+            assign image_height = section.settings.image.width | divided_by: section.settings.image.aspect_ratio | round
+          -%}
+          {{
+            section.settings.image |
+            image_url: width: 1500 |
+            image_tag:
+              loading: 'lazy',
+              width: section.settings.image.width,
+              height: image_height,
+              sizes: '(min-width: 750px) 50vw, 100vw',
+              widths: '375, 550, 750, 1100, 1500',
+              alt: section.settings.image.alt | escape,
+              class: 'split-story__image'
+          }}
+        {%- else -%}
+          <div class="image-wrapper image-wrapper--portrait">
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg split-story__image' }}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="split-story__content" data-aos>
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="split-story__eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <h2 class="split-story__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.text != blank -%}
+          <div class="split-story__text">
+            {{ section.settings.text }}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.button_label != blank -%}
+          <a href="{{ section.settings.button_link }}" class="button button--primary split-story__button">
+            {{ section.settings.button_label }}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if enable_animations %}
+  <script>
+    (function() {
+      const section = document.querySelector('.split-story-{{ section.id }}');
+      const elementsToAnimate = section.querySelectorAll('[data-aos]');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+          }
+        });
+      }, {
+        threshold: 0.2
+      });
+      
+      elementsToAnimate.forEach(el => observer.observe(el));
+    })();
+  </script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Split Image Story",
+  "tag": "section",
+  "class": "section-split-story",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "options": [
+        { "value": "left", "label": "Image on left" },
+        { "value": "right", "label": "Image on right" }
+      ],
+      "default": "left",
+      "label": "Image position"
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "min": 40,
+      "max": 60,
+      "step": 5,
+      "unit": "%",
+      "label": "Image width",
+      "default": 50
+    },
+    {
+      "type": "select",
+      "id": "image_style",
+      "options": [
+        { "value": "default", "label": "Default" },
+        { "value": "rounded", "label": "Rounded corners" },
+        { "value": "offset", "label": "Offset (editorial)" }
+      ],
+      "default": "default",
+      "label": "Image style"
+    },
+    {
+      "type": "select",
+      "id": "vertical_alignment",
+      "options": [
+        { "value": "flex-start", "label": "Top" },
+        { "value": "center", "label": "Center" },
+        { "value": "flex-end", "label": "Bottom" }
+      ],
+      "default": "center",
+      "label": "Vertical alignment"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "default": "#FFFFFF",
+      "label": "Background color"
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "Recommended: 1200x1600px (portrait) or 1600x1200px (landscape)"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Our Story"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Crafted with Passion & Tradition"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Description",
+      "default": "<p>For generations, our family has been dedicated to producing exceptional wines that capture the essence of our terroir. Each bottle tells a story of dedication, craftsmanship, and a deep respect for the land.</p><p>We believe that great wine begins in the vineyard, and our commitment to sustainable practices ensures that future generations will continue to enjoy the fruits of our labor.</p>"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left",
+      "label": "Content alignment"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "min": 400,
+      "max": 800,
+      "step": 50,
+      "unit": "px",
+      "label": "Content maximum width",
+      "default": 600
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "default": "#8B7355",
+      "label": "Eyebrow color"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "default": "#1a1a1a",
+      "label": "Heading color"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 24,
+      "max": 64,
+      "step": 4,
+      "unit": "px",
+      "label": "Heading size (desktop)",
+      "default": 48
+    },
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "options": [
+        { "value": "300", "label": "Light" },
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semibold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "600",
+      "label": "Heading weight"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "default": "#4a4a4a",
+      "label": "Text color"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 14,
+      "max": 22,
+      "step": 2,
+      "unit": "px",
+      "label": "Text size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Effects"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_animations",
+      "default": true,
+      "label": "Enable scroll animations"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Split Image Story",
+      "settings": {
+        "heading": "Crafted with Passion & Tradition",
+        "text": "<p>For generations, our family has been dedicated to producing exceptional wines that capture the essence of our terroir.</p>",
+        "button_label": "Learn More"
+      }
+    }
+  ]
+}
+{% endschema %}

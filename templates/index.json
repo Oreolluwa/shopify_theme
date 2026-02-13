@@ -1,45 +1,266 @@
 {
   "sections": {
-    "hero": {
-      "type": "hero",
+    "editorial-hero": {
+      "type": "editorial-hero",
       "settings": {
-        "title": "Premium Spirits Collection",
-        "subtitle": "Discover our curated selection of fine wines and spirits",
-        "button_label": "Shop Now",
-        "button_link": "/collections/all",
-        "hero_height": 600,
-        "hero_height_mobile": 400,
-        "overlay_opacity": 40
+        "eyebrow": "Curated Excellence",
+        "heading": "Discover Exceptional Wines",
+        "text": "<p>From prestigious vineyards to your glass — explore our sommelier-selected collection of fine wines and rare spirits</p>",
+        "button_label_1": "Shop Collection",
+        "button_link_1": "/collections/all",
+        "button_label_2": "Our Story",
+        "button_link_2": "/pages/about",
+        "section_height_mobile": 600,
+        "section_height_desktop": 800,
+        "overlay_style": "gradient_bottom",
+        "overlay_opacity": 45,
+        "content_position_x": "center",
+        "content_position_y": "center",
+        "text_alignment": "center",
+        "heading_size": 72,
+        "heading_weight": "600",
+        "heading_color": "#FFFFFF",
+        "text_color": "#FFFFFF",
+        "eyebrow_color": "#D4AF37",
+        "enable_animations": true,
+        "enable_parallax": false,
+        "remove_top_spacing": true
       }
     },
-    "featured-products": {
-      "type": "featured-products",
+    "featured-collection-1": {
+      "type": "featured-collection-showcase",
       "settings": {
-        "title": "Featured Products",
-        "subtitle": "Handpicked selection of our finest spirits",
-        "products_to_show": 4
+        "eyebrow": "Sommelier Selection",
+        "heading": "Featured Wines",
+        "description": "Hand-picked by our expert sommeliers for exceptional quality and value",
+        "products_to_show": 4,
+        "grid_columns_desktop": 4,
+        "grid_columns_mobile": 2,
+        "grid_gap": 32,
+        "image_ratio": "portrait",
+        "text_alignment": "center",
+        "heading_size": 40,
+        "show_vendor": true,
+        "show_badges": true,
+        "enable_quick_view": false,
+        "enable_image_zoom": true,
+        "enable_hover_lift": true,
+        "show_view_all": true,
+        "button_label": "View All Wines",
+        "background_color": "#FFFFFF",
+        "card_bg_color": "#F9F9F9",
+        "eyebrow_color": "#8B7355",
+        "heading_color": "#1a1a1a"
       }
     },
-    "rich-text": {
-      "type": "rich-text",
+    "split-story-1": {
+      "type": "split-image-story",
       "settings": {
-        "title": "Welcome to Our Liquor Store",
-        "text": "<p>We offer the finest selection of premium wines, whiskeys, and spirits from around the world. Our collection is carefully curated to bring you the best quality at competitive prices.</p>"
+        "eyebrow": "Our Heritage",
+        "heading": "Crafted with Passion & Tradition",
+        "text": "<p>For generations, we've been dedicated to sourcing exceptional wines that capture the essence of their terroir. Each bottle tells a story of dedication, craftsmanship, and a deep respect for the land.</p><p>Our relationships with world-renowned vineyards and distilleries ensure that every selection meets our exacting standards for quality and authenticity.</p>",
+        "button_label": "Learn Our Story",
+        "button_link": "/pages/about",
+        "image_position": "left",
+        "image_width": 50,
+        "image_style": "default",
+        "vertical_alignment": "center",
+        "content_alignment": "left",
+        "heading_size": 48,
+        "heading_weight": "600",
+        "background_color": "#F9F9F9",
+        "eyebrow_color": "#8B7355",
+        "heading_color": "#1a1a1a",
+        "text_color": "#4a4a4a",
+        "enable_animations": true
       }
     },
-    "featured-collection": {
-      "type": "featured-products",
+    "lifestyle-grid-1": {
+      "type": "lifestyle-grid",
+      "blocks": {
+        "lifestyle-1": {
+          "type": "image",
+          "settings": {
+            "title": "Vineyard Tours",
+            "text": "Experience where it all begins",
+            "link": "/pages/vineyard-tours",
+            "link_text": "Explore",
+            "size": "default"
+          }
+        },
+        "lifestyle-2": {
+          "type": "image",
+          "settings": {
+            "title": "Wine Pairing",
+            "text": "Perfect combinations await",
+            "link": "/pages/wine-pairing-guide",
+            "link_text": "Discover",
+            "size": "tall"
+          }
+        },
+        "lifestyle-3": {
+          "type": "image",
+          "settings": {
+            "title": "Cellar Collection",
+            "text": "Build your perfect cellar",
+            "link": "/collections/cellar-wines",
+            "link_text": "Shop Now",
+            "size": "default"
+          }
+        },
+        "lifestyle-4": {
+          "type": "image",
+          "settings": {
+            "title": "Expert Guidance",
+            "text": "Sommeliers at your service",
+            "link": "/pages/sommelier-service",
+            "link_text": "Learn More",
+            "size": "default"
+          }
+        },
+        "lifestyle-5": {
+          "type": "image",
+          "settings": {
+            "title": "Tasting Events",
+            "text": "Join our exclusive tastings",
+            "link": "/pages/events",
+            "link_text": "View Events",
+            "size": "wide"
+          }
+        }
+      },
+      "block_order": [
+        "lifestyle-1",
+        "lifestyle-2",
+        "lifestyle-3",
+        "lifestyle-4",
+        "lifestyle-5"
+      ],
       "settings": {
-        "title": "Best Sellers",
-        "subtitle": "Most popular items this month",
-        "products_to_show": 8
+        "eyebrow": "Lifestyle",
+        "heading": "Life with Wine",
+        "description": "Discover the art of living well through our curated lifestyle imagery",
+        "text_alignment": "center",
+        "heading_size": 40,
+        "grid_layout": "masonry",
+        "columns_desktop": 3,
+        "columns_mobile": 2,
+        "grid_gap": 16,
+        "full_width": false,
+        "background_color": "#FFFFFF",
+        "eyebrow_color": "#8B7355",
+        "heading_color": "#1a1a1a"
+      }
+    },
+    "split-story-2": {
+      "type": "split-image-story",
+      "settings": {
+        "eyebrow": "Sustainable Practices",
+        "heading": "Committed to the Future",
+        "text": "<p>We believe in sustainable viticulture and responsible sourcing. Our partners share our commitment to environmental stewardship, ensuring that future generations can enjoy the beauty and bounty of the vineyard.</p><p>From organic certifications to carbon-neutral shipping, every decision is made with the planet in mind.</p>",
+        "button_label": "Our Sustainability",
+        "button_link": "/pages/sustainability",
+        "image_position": "right",
+        "image_width": 50,
+        "image_style": "rounded",
+        "vertical_alignment": "center",
+        "content_alignment": "left",
+        "heading_size": 44,
+        "heading_weight": "600",
+        "background_color": "#FFFFFF",
+        "eyebrow_color": "#8B7355",
+        "heading_color": "#1a1a1a",
+        "text_color": "#4a4a4a",
+        "enable_animations": true
+      }
+    },
+    "testimonials-1": {
+      "type": "testimonials-premium",
+      "blocks": {
+        "testimonial-1": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Exceptional quality and service. The selection is outstanding and the staff truly knows their wines. I've been a loyal customer for over five years.",
+            "rating": 5,
+            "author_name": "Sarah Johnson",
+            "author_title": "Wine Enthusiast"
+          }
+        },
+        "testimonial-2": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "I've been a customer for years. Their curated collection never disappoints, and delivery is always prompt and professional.",
+            "rating": 5,
+            "author_name": "Michael Chen",
+            "author_title": "Sommelier"
+          }
+        },
+        "testimonial-3": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "A true gem for wine lovers. The expertise and passion shine through in every recommendation. They've helped me discover wines I never would have found on my own.",
+            "rating": 5,
+            "author_name": "Emma Thompson",
+            "author_title": "San Francisco, CA"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial-1",
+        "testimonial-2",
+        "testimonial-3"
+      ],
+      "settings": {
+        "eyebrow": "Testimonials",
+        "heading": "What Our Customers Say",
+        "description": "Join thousands of satisfied wine enthusiasts who trust us for their finest selections",
+        "text_alignment": "center",
+        "heading_size": 40,
+        "columns_desktop": 3,
+        "grid_gap": 32,
+        "card_style": "rounded",
+        "enable_hover_effect": true,
+        "show_ratings": true,
+        "background_color": "#F9F9F9",
+        "card_bg_color": "#FFFFFF",
+        "eyebrow_color": "#8B7355",
+        "heading_color": "#1a1a1a",
+        "star_color": "#F59E0B"
+      }
+    },
+    "featured-collection-2": {
+      "type": "featured-collection-showcase",
+      "settings": {
+        "eyebrow": "New Arrivals",
+        "heading": "Recently Added",
+        "description": "Discover the latest additions to our collection",
+        "products_to_show": 4,
+        "grid_columns_desktop": 4,
+        "grid_columns_mobile": 2,
+        "grid_gap": 32,
+        "image_ratio": "portrait",
+        "text_alignment": "center",
+        "heading_size": 40,
+        "show_vendor": true,
+        "show_badges": true,
+        "enable_image_zoom": true,
+        "enable_hover_lift": true,
+        "show_view_all": true,
+        "button_label": "View All New Arrivals",
+        "background_color": "#FFFFFF",
+        "card_bg_color": "#F9F9F9",
+        "eyebrow_color": "#8B7355",
+        "heading_color": "#1a1a1a"
       }
     }
   },
   "order": [
-    "hero",
-    "featured-products",
-    "rich-text",
-    "featured-collection"
+    "editorial-hero",
+    "featured-collection-1",
+    "split-story-1",
+    "lifestyle-grid-1",
+    "split-story-2",
+    "testimonials-1",
+    "featured-collection-2"
   ]
 }

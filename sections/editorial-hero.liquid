@@ -1,0 +1,560 @@
+{% comment %}
+  Editorial Hero Section - Premium full-width banner
+  
+  Design Philosophy:
+  - Large, impactful imagery with editorial quality
+  - Layered text overlay with sophisticated typography
+  - Multiple layout options for creative flexibility
+  - Smooth reveal animations
+  - High-end wine/spirits aesthetic
+  
+  Features:
+  - Full-bleed, contained, or split layouts
+  - Adjustable image positioning
+  - Custom overlay gradients
+  - Responsive height controls
+  - Animation options
+{% endcomment %}
+
+{%- liquid
+  assign section_height_mobile = section.settings.section_height_mobile | default: 600
+  assign section_height_desktop = section.settings.section_height_desktop | default: 750
+  assign content_position_x = section.settings.content_position_x | default: 'center'
+  assign content_position_y = section.settings.content_position_y | default: 'center'
+  assign text_alignment = section.settings.text_alignment | default: 'center'
+-%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    margin-top: {% if section.settings.remove_top_spacing %}-6rem{% else %}0{% endif %};
+  }
+
+  .editorial-hero-{{ section.id }} {
+    position: relative;
+    width: 100%;
+    min-height: {{ section_height_mobile }}px;
+    display: flex;
+    align-items: {{ content_position_y }};
+    overflow: hidden;
+    background-color: {{ section.settings.fallback_color }};
+  }
+
+  @media screen and (min-width: 750px) {
+    .editorial-hero-{{ section.id }} {
+      min-height: {{ section_height_desktop }}px;
+    }
+  }
+
+  .editorial-hero-{{ section.id }} .hero__media {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .editorial-hero-{{ section.id }} .hero__media img,
+  .editorial-hero-{{ section.id }} .hero__media video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: {{ section.settings.image_position_x }} {{ section.settings.image_position_y }};
+  }
+
+  {% if section.settings.enable_parallax %}
+    @media screen and (min-width: 750px) {
+      .editorial-hero-{{ section.id }} .hero__media img {
+        transform: scale(1.1);
+        transition: transform 0.5s ease-out;
+      }
+    }
+  {% endif %}
+
+  .editorial-hero-{{ section.id }} .hero__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    {% if section.settings.overlay_style == 'gradient_bottom' %}
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, {{ section.settings.overlay_opacity | divided_by: 100.0 }}) 100%
+      );
+    {% elsif section.settings.overlay_style == 'gradient_top' %}
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, {{ section.settings.overlay_opacity | divided_by: 100.0 }}) 100%
+      );
+    {% elsif section.settings.overlay_style == 'solid' %}
+      background-color: rgba(0, 0, 0, {{ section.settings.overlay_opacity | divided_by: 100.0 }});
+    {% elsif section.settings.overlay_style == 'radial' %}
+      background: radial-gradient(
+        ellipse at center,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, {{ section.settings.overlay_opacity | divided_by: 100.0 }}) 70%
+      );
+    {% endif %}
+  }
+
+  .editorial-hero-{{ section.id }} .hero__content {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: var(--spacing-xl) var(--spacing-md);
+    text-align: {{ text_alignment }};
+    display: flex;
+    flex-direction: column;
+    {% if content_position_x == 'left' %}
+      align-items: flex-start;
+    {% elsif content_position_x == 'right' %}
+      align-items: flex-end;
+    {% else %}
+      align-items: center;
+    {% endif %}
+  }
+
+  @media screen and (min-width: 750px) {
+    .editorial-hero-{{ section.id }} .hero__content {
+      padding: var(--spacing-2xl) var(--spacing-xl);
+    }
+  }
+
+  .editorial-hero-{{ section.id }} .hero__content-inner {
+    max-width: {{ section.settings.content_max_width }}px;
+  }
+
+  .editorial-hero-{{ section.id }} .hero__eyebrow {
+    font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: {{ section.settings.eyebrow_color }};
+    margin-bottom: var(--spacing-sm);
+    {% if section.settings.enable_animations %}
+      opacity: 0;
+      animation: slideInUp 0.8s ease forwards 0.2s;
+    {% endif %}
+  }
+
+  .editorial-hero-{{ section.id }} .hero__heading {
+    font-size: clamp(3.2rem, 6vw, {{ section.settings.heading_size }}px);
+    font-weight: {{ section.settings.heading_weight }};
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: {{ section.settings.heading_color }};
+    margin-bottom: var(--spacing-md);
+    {% if section.settings.enable_animations %}
+      opacity: 0;
+      animation: slideInUp 0.8s ease forwards 0.4s;
+    {% endif %}
+  }
+
+  .editorial-hero-{{ section.id }} .hero__text {
+    font-size: clamp(1.6rem, 2vw, {{ section.settings.text_size }}px);
+    line-height: 1.6;
+    color: {{ section.settings.text_color }};
+    margin-bottom: var(--spacing-lg);
+    {% if section.settings.enable_animations %}
+      opacity: 0;
+      animation: slideInUp 0.8s ease forwards 0.6s;
+    {% endif %}
+  }
+
+  .editorial-hero-{{ section.id }} .hero__buttons {
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+    {% if text_alignment == 'center' %}
+      justify-content: center;
+    {% elsif text_alignment == 'right' %}
+      justify-content: flex-end;
+    {% else %}
+      justify-content: flex-start;
+    {% endif %}
+    {% if section.settings.enable_animations %}
+      opacity: 0;
+      animation: slideInUp 0.8s ease forwards 0.8s;
+    {% endif %}
+  }
+{%- endstyle -%}
+
+<section class="editorial-hero-{{ section.id }} section{% if section.settings.remove_top_spacing %} section--no-padding-top{% endif %}">
+  <div class="hero__media">
+    {%- if section.settings.image != blank -%}
+      {%- liquid
+        assign image_height = section.settings.image.width | divided_by: section.settings.image.aspect_ratio
+        assign sizes = '100vw'
+      -%}
+      {{
+        section.settings.image |
+        image_url: width: 3000 |
+        image_tag:
+          loading: 'eager',
+          width: section.settings.image.width,
+          height: image_height,
+          sizes: sizes,
+          widths: '375, 750, 1100, 1500, 1780, 2000, 3000',
+          alt: section.settings.image.alt | default: section.settings.heading | escape
+      }}
+    {%- elsif section.settings.video_url != blank -%}
+      <video autoplay muted loop playsinline aria-label="{{ section.settings.heading | escape | default: 'Hero video' }}">
+        <source src="{{ section.settings.video_url }}" type="video/mp4">
+      </video>
+    {%- else -%}
+      {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+  </div>
+
+  <div class="hero__overlay"></div>
+
+  <div class="hero__content">
+    <div class="hero__content-inner">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="hero__eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h1 class="hero__heading">{{ section.settings.heading }}</h1>
+      {%- endif -%}
+
+      {%- if section.settings.text != blank -%}
+        <div class="hero__text">{{ section.settings.text }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.button_label_1 != blank or section.settings.button_label_2 != blank -%}
+        <div class="hero__buttons">
+          {%- if section.settings.button_label_1 != blank -%}
+            <a href="{{ section.settings.button_link_1 }}" class="button button--primary">
+              {{ section.settings.button_label_1 }}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.button_label_2 != blank -%}
+            <a href="{{ section.settings.button_link_2 }}" class="button button--secondary">
+              {{ section.settings.button_label_2 }}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% if section.settings.enable_parallax %}
+  <script>
+    (function() {
+      const hero = document.querySelector('.editorial-hero-{{ section.id }}');
+      const heroMedia = hero.querySelector('.hero__media img');
+      
+      if (window.innerWidth >= 750 && heroMedia) {
+        window.addEventListener('scroll', function() {
+          const scrolled = window.pageYOffset;
+          const heroTop = hero.offsetTop;
+          const heroHeight = hero.offsetHeight;
+          
+          if (scrolled <= heroTop + heroHeight) {
+            const yPos = -(scrolled - heroTop) * 0.5;
+            heroMedia.style.transform = `translateY(${yPos}px) scale(1.1)`;
+          }
+        });
+      }
+    })();
+  </script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Editorial Hero",
+  "tag": "section",
+  "class": "section-editorial-hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero image",
+      "info": "Recommended: 2000x1200px or larger for best quality"
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "Video URL (optional)",
+      "info": "Use .mp4 format. Video will autoplay and loop."
+    },
+    {
+      "type": "color",
+      "id": "fallback_color",
+      "default": "#1a1a1a",
+      "label": "Background fallback color"
+    },
+    {
+      "type": "select",
+      "id": "image_position_x",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center",
+      "label": "Image horizontal position"
+    },
+    {
+      "type": "select",
+      "id": "image_position_y",
+      "options": [
+        { "value": "top", "label": "Top" },
+        { "value": "center", "label": "Center" },
+        { "value": "bottom", "label": "Bottom" }
+      ],
+      "default": "center",
+      "label": "Image vertical position"
+    },
+    {
+      "type": "header",
+      "content": "Layout & Dimensions"
+    },
+    {
+      "type": "range",
+      "id": "section_height_mobile",
+      "min": 400,
+      "max": 800,
+      "step": 50,
+      "unit": "px",
+      "label": "Section height (mobile)",
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "section_height_desktop",
+      "min": 500,
+      "max": 1000,
+      "step": 50,
+      "unit": "px",
+      "label": "Section height (desktop)",
+      "default": 750
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_top_spacing",
+      "default": true,
+      "label": "Remove top spacing",
+      "info": "Recommended for first section to sit flush under transparent header"
+    },
+    {
+      "type": "header",
+      "content": "Overlay"
+    },
+    {
+      "type": "select",
+      "id": "overlay_style",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "solid", "label": "Solid" },
+        { "value": "gradient_bottom", "label": "Gradient (bottom)" },
+        { "value": "gradient_top", "label": "Gradient (top)" },
+        { "value": "radial", "label": "Radial" }
+      ],
+      "default": "gradient_bottom",
+      "label": "Overlay style"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "New Collection",
+      "info": "Small text above heading"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Discover Exceptional Wines"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Description",
+      "default": "<p>Curated selections from prestigious vineyards around the world</p>"
+    },
+    {
+      "type": "header",
+      "content": "Content Position & Style"
+    },
+    {
+      "type": "select",
+      "id": "content_position_x",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center",
+      "label": "Horizontal alignment"
+    },
+    {
+      "type": "select",
+      "id": "content_position_y",
+      "options": [
+        { "value": "flex-start", "label": "Top" },
+        { "value": "center", "label": "Center" },
+        { "value": "flex-end", "label": "Bottom" }
+      ],
+      "default": "center",
+      "label": "Vertical alignment"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center",
+      "label": "Text alignment"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "min": 400,
+      "max": 1000,
+      "step": 50,
+      "unit": "px",
+      "label": "Content maximum width",
+      "default": 700
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "default": "#FFFFFF",
+      "label": "Eyebrow color"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "default": "#FFFFFF",
+      "label": "Heading color"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 32,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Heading size (desktop)",
+      "default": 72
+    },
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "options": [
+        { "value": "300", "label": "Light" },
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semibold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "600",
+      "label": "Heading weight"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "default": "#FFFFFF",
+      "label": "Text color"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 14,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "label": "Text size",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "button_label_1",
+      "label": "Primary button label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link_1",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "button_label_2",
+      "label": "Secondary button label",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "button_link_2",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "header",
+      "content": "Effects"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_animations",
+      "default": true,
+      "label": "Enable content animations"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_parallax",
+      "default": false,
+      "label": "Enable parallax effect",
+      "info": "Subtle image movement on scroll (desktop only)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Editorial Hero",
+      "settings": {
+        "heading": "Discover Exceptional Wines",
+        "text": "<p>Curated selections from prestigious vineyards around the world</p>",
+        "button_label_1": "Shop Now",
+        "button_label_2": "Learn More"
+      }
+    }
+  ]
+}
+{% endschema %}
