@@ -1,0 +1,162 @@
+{% comment %}
+  Rich Text Section
+{% endcomment %}
+
+{%- style -%}
+  .rich-text {
+    padding: 6rem 2rem;
+    background-color: {{ section.settings.background_color }};
+  }
+
+  @media screen and (min-width: 750px) {
+    .rich-text {
+      padding: 8rem 4rem;
+    }
+  }
+
+  .rich-text__wrapper {
+    max-width: {{ section.settings.content_width }}px;
+    margin: 0 auto;
+    text-align: {{ section.settings.text_alignment }};
+  }
+
+  .rich-text__title {
+    font-size: 3.6rem;
+    font-weight: 700;
+    color: rgb(var(--black));
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    margin-bottom: 2rem;
+  }
+
+  @media screen and (max-width: 749px) {
+    .rich-text__title {
+      font-size: 2.8rem;
+    }
+  }
+
+  .rich-text__text {
+    font-size: 1.6rem;
+    line-height: 1.8;
+    color: rgba(var(--black), 0.8);
+    margin-bottom: 2rem;
+  }
+
+  .rich-text__text p {
+    margin-bottom: 1.5rem;
+  }
+
+  .rich-text__button {
+    display: inline-block;
+    padding: 1.5rem 3rem;
+    background-color: rgb(var(--gold));
+    color: rgb(var(--black));
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    transition: all 0.3s ease;
+    border: 2px solid rgb(var(--gold));
+    margin-top: 1rem;
+  }
+
+  .rich-text__button:hover {
+    background-color: rgb(var(--black));
+    border-color: rgb(var(--black));
+    color: rgb(var(--white));
+  }
+{%- endstyle -%}
+
+<section class="rich-text">
+  <div class="rich-text__wrapper">
+    {%- if section.settings.title != blank -%}
+      <h2 class="rich-text__title">{{ section.settings.title }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.text != blank -%}
+      <div class="rich-text__text">
+        {{ section.settings.text }}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+      <a href="{{ section.settings.button_link }}" class="rich-text__button">
+        {{ section.settings.button_label }}
+      </a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.rich-text.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Rich text",
+      "label": "t:sections.rich-text.settings.title.label"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "default": "<p>Share information about your brand with your customers.</p>",
+      "label": "t:sections.rich-text.settings.text.label"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "t:sections.rich-text.settings.button_label.label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "t:sections.rich-text.settings.button_link.label"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.rich-text.settings.text_alignment.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.rich-text.settings.text_alignment.options__2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.rich-text.settings.text_alignment.options__3.label"
+        }
+      ],
+      "default": "center",
+      "label": "t:sections.rich-text.settings.text_alignment.label"
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "min": 600,
+      "max": 1200,
+      "step": 50,
+      "unit": "px",
+      "label": "t:sections.rich-text.settings.content_width.label",
+      "default": 800
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:sections.rich-text.settings.background_color.label",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.rich-text.presets.name"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,129 @@
+{% comment %}
+  Product Recommendations Section
+{% endcomment %}
+
+{%- style -%}
+  .product-recommendations {
+    padding: 6rem 2rem;
+    background-color: rgba(var(--black), 0.02);
+  }
+
+  @media screen and (min-width: 750px) {
+    .product-recommendations {
+      padding: 8rem 4rem;
+    }
+  }
+
+  .product-recommendations__wrapper {
+    max-width: var(--page-width);
+    margin: 0 auto;
+  }
+
+  .product-recommendations__title {
+    font-size: 3.2rem;
+    font-weight: 700;
+    color: rgb(var(--black));
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+
+  .product-recommendations__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .product-recommendations__grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3rem;
+    }
+  }
+{%- endstyle -%}
+
+<div class="product-recommendations" data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.products_to_show }}">
+  {%- if recommendations.performed and recommendations.products_count > 0 -%}
+    <div class="product-recommendations__wrapper">
+      <h2 class="product-recommendations__title">{{ section.settings.heading }}</h2>
+      
+      <div class="product-recommendations__grid">
+        {%- for product in recommendations.products limit: section.settings.products_to_show -%}
+          <div class="product-card">
+            <div class="product-card__image-wrapper">
+              {%- if product.featured_media -%}
+                <a href="{{ product.url }}">
+                  <img src="{{ product.featured_media | image_url: width: 600 }}"
+                       alt="{{ product.featured_media.alt | escape }}"
+                       class="product-card__image"
+                       loading="lazy">
+                </a>
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'product-card__image' }}
+              {%- endif -%}
+            </div>
+
+            <div class="product-card__content">
+              <h3 class="product-card__title">
+                <a href="{{ product.url }}">{{ product.title }}</a>
+              </h3>
+
+              <div class="product-card__price">
+                <span>{{ product.price | money }}</span>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const container = document.querySelector('.product-recommendations');
+    if (container) {
+      const url = container.getAttribute('data-url');
+      
+      fetch(url)
+        .then(response => response.text())
+        .then(text => {
+          const html = new DOMParser().parseFromString(text, 'text/html');
+          const recommendations = html.querySelector('.product-recommendations');
+          
+          if (recommendations && recommendations.innerHTML.trim().length) {
+            container.innerHTML = recommendations.innerHTML;
+          }
+        })
+        .catch(error => {
+          console.error('Error loading recommendations:', error);
+        });
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "t:sections.product-recommendations.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "You may also like",
+      "label": "t:sections.product-recommendations.settings.heading.label"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 4,
+      "label": "t:sections.product-recommendations.settings.products_to_show.label"
+    }
+  ]
+}
+{% endschema %}

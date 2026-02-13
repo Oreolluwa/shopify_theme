@@ -1,0 +1,67 @@
+/* Component styles for list menus */
+
+.list-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list-menu--inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.list-menu__item {
+  position: relative;
+}
+
+.list-menu__item a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+.list-menu__item a:hover {
+  color: rgb(var(--gold));
+}
+
+/* Dropdown menus */
+.list-menu__item--has-dropdown {
+  position: relative;
+}
+
+.list-menu__dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 200px;
+  background-color: rgb(var(--white));
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 1rem 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+
+.list-menu__item--has-dropdown:hover .list-menu__dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.list-menu__dropdown-item {
+  padding: 1rem 2rem;
+  white-space: nowrap;
+}
+
+.list-menu__dropdown-item a {
+  display: block;
+  color: rgb(var(--black));
+}
+
+.list-menu__dropdown-item a:hover {
+  color: rgb(var(--gold));
+}

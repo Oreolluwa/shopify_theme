@@ -1,0 +1,87 @@
+{
+  "current": {
+    "colors_text": "#000000",
+    "colors_background_1": "#FFFFFF",
+    "colors_background_2": "#F5F5F5",
+    "colors_accent_1": "#D4AF37",
+    "colors_accent_2": "#000000",
+    "colors_solid_button_labels": "#FFFFFF",
+    "colors_outline_button_labels": "#000000",
+    "type_header_font": "assistant_n4",
+    "heading_scale": 100,
+    "type_body_font": "assistant_n4",
+    "body_scale": 100,
+    "page_width": 1200,
+    "spacing_sections": 0,
+    "social_facebook_link": "",
+    "social_instagram_link": "",
+    "social_twitter_link": "",
+    "social_youtube_link": "",
+    "social_tiktok_link": "",
+    "cart_type": "drawer",
+    "show_vendor": false,
+    "show_cart_note": true,
+    "predictive_search_enabled": true,
+    "predictive_search_show_vendor": false,
+    "predictive_search_show_price": true,
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "settings": {
+          "show_announcement": true,
+          "text": "Free shipping on orders over $100",
+          "link": ""
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "logo_width": 150,
+          "menu": "main-menu",
+          "sticky_header_type": "on-scroll-up",
+          "enable_customer_avatar": true
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "footer-0": {
+            "type": "link_list",
+            "settings": {
+              "heading": "Quick links",
+              "menu": "footer"
+            }
+          },
+          "footer-1": {
+            "type": "text",
+            "settings": {
+              "heading": "About Us",
+              "subtext": "<p>We offer the finest selection of premium wines, whiskeys, and spirits from around the world.</p>",
+              "show_social": true
+            }
+          },
+          "footer-2": {
+            "type": "newsletter",
+            "settings": {
+              "heading": "Newsletter",
+              "subtext": "Subscribe to get special offers and updates."
+            }
+          }
+        },
+        "block_order": [
+          "footer-0",
+          "footer-1",
+          "footer-2"
+        ],
+        "settings": {
+          "show_payment_icons": true
+        }
+      }
+    },
+    "content_for_index": [
+      "announcement-bar",
+      "header",
+      "footer"
+    ]
+  }
+}

@@ -1,0 +1,198 @@
+{% comment %}
+  Hero Section - Full-width banner with text overlay
+{% endcomment %}
+
+{%- style -%}
+  .hero-section {
+    position: relative;
+    width: 100%;
+    height: {{ section.settings.hero_height }}px;
+    overflow: hidden;
+  }
+
+  @media screen and (max-width: 749px) {
+    .hero-section {
+      height: {{ section.settings.hero_height_mobile }}px;
+    }
+  }
+
+  .hero-section__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .hero-section__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(var(--black), {{ section.settings.overlay_opacity | divided_by: 100.0 }});
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-section__content {
+    text-align: center;
+    color: rgb(var(--white));
+    max-width: 800px;
+    padding: 2rem;
+  }
+
+  .hero-section__title {
+    font-size: 4.8rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    color: rgb(var(--gold));
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  }
+
+  @media screen and (max-width: 749px) {
+    .hero-section__title {
+      font-size: 3.2rem;
+    }
+  }
+
+  .hero-section__subtitle {
+    font-size: 2rem;
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+    color: rgb(var(--white));
+  }
+
+  @media screen and (max-width: 749px) {
+    .hero-section__subtitle {
+      font-size: 1.6rem;
+    }
+  }
+
+  .hero-section__button {
+    display: inline-block;
+    padding: 1.5rem 4rem;
+    background-color: rgb(var(--gold));
+    color: rgb(var(--black));
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    transition: all 0.3s ease;
+    border: 2px solid rgb(var(--gold));
+  }
+
+  .hero-section__button:hover {
+    background-color: transparent;
+    color: rgb(var(--gold));
+  }
+{%- endstyle -%}
+
+<section class="hero-section">
+  {%- if section.settings.image != blank -%}
+    <img src="{{ section.settings.image | image_url: width: 2000 }}"
+         srcset="{{ section.settings.image | image_url: width: 1000 }} 1000w,
+                 {{ section.settings.image | image_url: width: 1500 }} 1500w,
+                 {{ section.settings.image | image_url: width: 2000 }} 2000w"
+         sizes="100vw"
+         alt="{{ section.settings.title | escape }}"
+         class="hero-section__image"
+         loading="lazy">
+  {%- else -%}
+    {{ 'lifestyle-1' | placeholder_svg_tag: 'hero-section__image' }}
+  {%- endif -%}
+
+  <div class="hero-section__overlay">
+    <div class="hero-section__content">
+      {%- if section.settings.title != blank -%}
+        <h1 class="hero-section__title">{{ section.settings.title }}</h1>
+      {%- endif -%}
+      
+      {%- if section.settings.subtitle != blank -%}
+        <p class="hero-section__subtitle">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+      
+      {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+        <a href="{{ section.settings.button_link }}" class="hero-section__button">
+          {{ section.settings.button_label }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.hero.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:sections.hero.settings.image.label"
+    },
+    {
+      "type": "range",
+      "id": "hero_height",
+      "min": 400,
+      "max": 800,
+      "step": 50,
+      "unit": "px",
+      "label": "t:sections.hero.settings.hero_height.label",
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "hero_height_mobile",
+      "min": 300,
+      "max": 600,
+      "step": 50,
+      "unit": "px",
+      "label": "t:sections.hero.settings.hero_height_mobile.label",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "label": "t:sections.hero.settings.overlay_opacity.label",
+      "default": 40
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Premium Spirits Collection",
+      "label": "t:sections.hero.settings.title.label"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "default": "Discover our curated selection of fine wines and spirits",
+      "label": "t:sections.hero.settings.subtitle.label"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "default": "Shop Now",
+      "label": "t:sections.hero.settings.button_label.label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "t:sections.hero.settings.button_link.label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.hero.presets.name"
+    }
+  ]
+}
+{% endschema %}

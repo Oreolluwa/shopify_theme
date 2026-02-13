@@ -1,0 +1,152 @@
+{
+  "general": {
+    "404": {
+      "title": "404 Page Not Found",
+      "subtext": "The page you requested does not exist."
+    },
+    "accessibility": {
+      "skip_to_text": "Skip to content",
+      "refresh_page": "Choosing a selection results in a full page refresh.",
+      "link_messages": {
+        "new_window": "Opens in a new window."
+      }
+    },
+    "continue_shopping": "Continue shopping",
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page {{ number }}"
+    },
+    "share": {
+      "success_message": "Link copied to clipboard"
+    }
+  },
+  "sections": {
+    "header": {
+      "name": "Header"
+    },
+    "footer": {
+      "name": "Footer",
+      "all_rights_reserved": "All rights reserved"
+    },
+    "announcement-bar": {
+      "name": "Announcement bar"
+    },
+    "hero": {
+      "name": "Hero"
+    },
+    "featured-products": {
+      "name": "Featured products"
+    },
+    "rich-text": {
+      "name": "Rich text"
+    },
+    "main-product": {
+      "name": "Product information"
+    },
+    "product-recommendations": {
+      "name": "Product recommendations"
+    },
+    "main-collection-banner": {
+      "name": "Collection banner"
+    },
+    "main-collection-product-grid": {
+      "name": "Product grid"
+    },
+    "main-cart-items": {
+      "name": "Cart items"
+    },
+    "main-cart-footer": {
+      "name": "Cart footer"
+    },
+    "cart": {
+      "title": "Your cart",
+      "caption": "Cart items",
+      "remove_title": "Remove {{ title }}",
+      "subtotal": "Subtotal",
+      "new_subtotal": "New subtotal",
+      "note": "Order special instructions",
+      "note_placeholder": "Add special instructions for your order",
+      "checkout": "Check out",
+      "empty": "Your cart is currently empty.",
+      "cart_error": "There was an error while updating your cart. Please try again.",
+      "cart_quantity_error_html": "You can only add {{ quantity }} of this item to your cart.",
+      "headings": {
+        "product": "Product",
+        "price": "Price",
+        "total": "Total",
+        "quantity": "Quantity"
+      },
+      "update": "Update",
+      "remove": "Remove",
+      "shipping_at_checkout": "Shipping, taxes, and discount codes calculated at checkout"
+    },
+    "collection_template": {
+      "title": "Collection",
+      "empty": "No products found",
+      "use_fewer_filters_html": "Use fewer filters or <a class=\"{{ class }}\" href=\"{{ link }}\">remove all</a>",
+      "product_count": {
+        "one": "{{ count }} product",
+        "other": "{{ count }} products"
+      }
+    },
+    "slideshow": {
+      "pause_slideshow": "Pause slideshow",
+      "play_slideshow": "Play slideshow"
+    }
+  },
+  "collections": {
+    "sorting": {
+      "title": "Sort by",
+      "featured": "Featured",
+      "best_selling": "Best selling",
+      "az": "Alphabetically, A-Z",
+      "za": "Alphabetically, Z-A",
+      "price_ascending": "Price, low to high",
+      "price_descending": "Price, high to low",
+      "date_ascending": "Date, old to new",
+      "date_descending": "Date, new to old"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to cart",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable",
+      "vendor": "Vendor",
+      "view_full_details": "View full details",
+      "quantity": {
+        "label": "Quantity",
+        "input_label": "Quantity for {{ product }}",
+        "increase": "Increase quantity for {{ product }}",
+        "decrease": "Decrease quantity for {{ product }}"
+      },
+      "price": {
+        "from_price_html": "From {{ price }}",
+        "regular_price": "Regular price",
+        "sale_price": "Sale price",
+        "unit_price": "Unit price"
+      },
+      "media": {
+        "image_available": "Image {{ index }} is now available in gallery view"
+      }
+    }
+  },
+  "newsletter": {
+    "label": "Email",
+    "success": "Thanks for subscribing",
+    "button_label": "Subscribe",
+    "email_placeholder": "Enter your email"
+  },
+  "accessibility": {
+    "refresh_page": "Choosing a selection results in a full page refresh.",
+    "link_messages": {
+      "new_window": "Opens in a new window."
+    },
+    "skip_to_text": "Skip to content"
+  },
+  "onboarding": {
+    "product_title": "Example product title",
+    "collection_title": "Your collection's name"
+  }
+}
