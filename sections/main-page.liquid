@@ -1,0 +1,101 @@
+{% comment %}
+  Main Page Section
+{% endcomment %}
+
+{%- style -%}
+  .main-page {
+    padding: 6rem 2rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .main-page {
+      padding: 8rem 4rem;
+    }
+  }
+
+  .main-page__wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .main-page__title {
+    font-size: 4.2rem;
+    font-weight: 700;
+    color: rgb(var(--black));
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+
+  @media screen and (max-width: 749px) {
+    .main-page__title {
+      font-size: 3.2rem;
+    }
+  }
+
+  .main-page__content {
+    font-size: 1.6rem;
+    line-height: 1.8;
+    color: rgba(var(--black), 0.8);
+  }
+
+  .main-page__content h2 {
+    font-size: 2.8rem;
+    margin: 3rem 0 1.5rem;
+    color: rgb(var(--black));
+  }
+
+  .main-page__content h3 {
+    font-size: 2.2rem;
+    margin: 2.5rem 0 1.2rem;
+    color: rgb(var(--black));
+  }
+
+  .main-page__content p {
+    margin-bottom: 1.5rem;
+  }
+
+  .main-page__content ul,
+  .main-page__content ol {
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+  }
+
+  .main-page__content li {
+    margin-bottom: 0.8rem;
+  }
+
+  .main-page__content a {
+    color: rgb(var(--gold));
+    text-decoration: underline;
+    transition: color 0.3s ease;
+  }
+
+  .main-page__content a:hover {
+    color: rgb(var(--black));
+  }
+
+  .main-page__content img {
+    max-width: 100%;
+    height: auto;
+    margin: 2rem 0;
+  }
+{%- endstyle -%}
+
+<div class="main-page">
+  <div class="main-page__wrapper">
+    <h1 class="main-page__title">{{ page.title }}</h1>
+    
+    <div class="main-page__content">
+      {{ page.content }}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-page.name",
+  "settings": []
+}
+{% endschema %}

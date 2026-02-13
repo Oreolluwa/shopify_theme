@@ -1,0 +1,96 @@
+{% comment %}
+  Main Collection Banner
+{% endcomment %}
+
+{%- style -%}
+  .collection-banner {
+    position: relative;
+    padding: 6rem 2rem 4rem;
+    background-color: rgb(var(--black));
+    color: rgb(var(--white));
+  }
+
+  @media screen and (min-width: 750px) {
+    .collection-banner {
+      padding: 8rem 4rem 6rem;
+    }
+  }
+
+  .collection-banner__wrapper {
+    max-width: var(--page-width);
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .collection-banner__title {
+    font-size: 4.8rem;
+    font-weight: 700;
+    color: rgb(var(--gold));
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  @media screen and (max-width: 749px) {
+    .collection-banner__title {
+      font-size: 3.2rem;
+    }
+  }
+
+  .collection-banner__description {
+    font-size: 1.8rem;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+    color: rgba(var(--white), 0.9);
+  }
+
+  @media screen and (max-width: 749px) {
+    .collection-banner__description {
+      font-size: 1.6rem;
+    }
+  }
+
+  .collection-banner__count {
+    margin-top: 2rem;
+    font-size: 1.4rem;
+    color: rgba(var(--white), 0.7);
+  }
+{%- endstyle -%}
+
+<div class="collection-banner">
+  <div class="collection-banner__wrapper">
+    <h1 class="collection-banner__title">{{ collection.title }}</h1>
+    
+    {%- if section.settings.show_collection_description and collection.description != blank -%}
+      <div class="collection-banner__description">
+        {{ collection.description }}
+      </div>
+    {%- endif -%}
+
+    <div class="collection-banner__count">
+      {{ 'sections.collection_template.product_count' | t: count: collection.products_count }}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-collection-banner.name",
+  "class": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_collection_description",
+      "default": true,
+      "label": "t:sections.main-collection-banner.settings.show_collection_description.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_image",
+      "default": true,
+      "label": "t:sections.main-collection-banner.settings.show_collection_image.label"
+    }
+  ]
+}
+{% endschema %}

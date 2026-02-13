@@ -1,0 +1,194 @@
+{% comment %}
+  Main Cart Footer Section - Totals and Checkout
+{% endcomment %}
+
+{%- style -%}
+  .cart-footer {
+    padding: 0 2rem 6rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .cart-footer {
+      padding: 0 4rem 8rem;
+    }
+  }
+
+  .cart-footer__wrapper {
+    max-width: var(--page-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  @media screen and (min-width: 990px) {
+    .cart-footer__wrapper {
+      grid-template-columns: 1fr 400px;
+    }
+  }
+
+  .cart-footer__note {
+    padding: 2rem;
+    border: 1px solid rgba(var(--black), 0.1);
+  }
+
+  .cart-footer__note-label {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .cart-footer__note-textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 1rem;
+    border: 1px solid rgba(var(--black), 0.2);
+    font-size: 1.4rem;
+    font-family: inherit;
+    resize: vertical;
+  }
+
+  .cart-footer__totals {
+    padding: 3rem;
+    background-color: rgba(var(--black), 0.02);
+    border: 2px solid rgba(var(--gold), 0.3);
+  }
+
+  .cart-footer__subtotal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(var(--black), 0.1);
+  }
+
+  .cart-footer__subtotal-label {
+    font-weight: 600;
+  }
+
+  .cart-footer__subtotal-price {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: rgb(var(--gold));
+  }
+
+  .cart-footer__shipping {
+    font-size: 1.4rem;
+    color: rgba(var(--black), 0.6);
+    margin-bottom: 2rem;
+  }
+
+  .cart-footer__checkout-button {
+    width: 100%;
+    padding: 2rem;
+    background-color: rgb(var(--black));
+    color: rgb(var(--white));
+    border: 2px solid rgb(var(--black));
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+  }
+
+  .cart-footer__checkout-button:hover {
+    background-color: rgb(var(--gold));
+    border-color: rgb(var(--gold));
+    color: rgb(var(--black));
+  }
+
+  .cart-footer__continue {
+    display: block;
+    text-align: center;
+    color: rgba(var(--black), 0.7);
+    text-decoration: underline;
+    font-size: 1.4rem;
+    transition: color 0.3s ease;
+  }
+
+  .cart-footer__continue:hover {
+    color: rgb(var(--gold));
+  }
+{%- endstyle -%}
+
+{%- if cart.item_count > 0 -%}
+  <div class="cart-footer">
+    <div class="cart-footer__wrapper">
+      {%- if section.settings.show_cart_note -%}
+        <div class="cart-footer__note">
+          <label for="cart-note" class="cart-footer__note-label">
+            {{ 'sections.cart.note' | t }}
+          </label>
+          <textarea name="note" 
+                    id="cart-note" 
+                    class="cart-footer__note-textarea"
+                    placeholder="{{ 'sections.cart.note_placeholder' | t }}">{{ cart.note }}</textarea>
+        </div>
+      {%- endif -%}
+
+      <div class="cart-footer__totals">
+        <div class="cart-footer__subtotal">
+          <span class="cart-footer__subtotal-label">{{ 'sections.cart.subtotal' | t }}</span>
+          <span class="cart-footer__subtotal-price">{{ cart.total_price | money }}</span>
+        </div>
+
+        <p class="cart-footer__shipping">
+          {{ 'sections.cart.shipping_at_checkout' | t }}
+        </p>
+
+        <button type="submit" 
+                name="checkout" 
+                class="cart-footer__checkout-button"
+                form="cart"
+                onclick="window.location.href='{{ routes.cart_url }}?checkout=true'; return false;">
+          {{ 'sections.cart.checkout' | t }}
+        </button>
+
+        <a href="{{ routes.all_products_collection_url }}" class="cart-footer__continue">
+          {{ 'general.continue_shopping' | t }}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const cartNote = document.getElementById('cart-note');
+      if (cartNote) {
+        cartNote.addEventListener('change', function() {
+          fetch('/cart/update.js', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              note: this.value
+            })
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+        });
+      }
+    });
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.main-cart-footer.name",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_cart_note",
+      "default": true,
+      "label": "t:sections.main-cart-footer.settings.show_cart_note.label"
+    }
+  ]
+}
+{% endschema %}
