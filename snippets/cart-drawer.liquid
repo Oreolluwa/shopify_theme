@@ -1,0 +1,206 @@
+{% comment %}
+  Cart Drawer - Side cart that slides in
+{% endcomment %}
+
+<style>
+  .cart-drawer {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 400px;
+    height: 100%;
+    background-color: rgb(var(--white));
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    transition: right 0.3s ease;
+    overflow-y: auto;
+  }
+
+  .cart-drawer.active {
+    right: 0;
+  }
+
+  .cart-drawer__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    border-bottom: 1px solid rgba(var(--black), 0.1);
+  }
+
+  .cart-drawer__title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .cart-drawer__close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+
+  .cart-drawer__close svg {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+
+  .cart-drawer__items {
+    padding: 2rem;
+  }
+
+  .cart-drawer__item {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(var(--black), 0.1);
+  }
+
+  .cart-drawer__item-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+  }
+
+  .cart-drawer__item-details {
+    flex: 1;
+  }
+
+  .cart-drawer__item-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .cart-drawer__item-price {
+    color: rgb(var(--gold));
+    font-weight: 600;
+  }
+
+  .cart-drawer__footer {
+    padding: 2rem;
+    border-top: 2px solid rgba(var(--black), 0.1);
+  }
+
+  .cart-drawer__total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+  }
+
+  .cart-drawer__checkout {
+    width: 100%;
+    padding: 1.5rem;
+    background-color: rgb(var(--gold));
+    color: rgb(var(--black));
+    border: none;
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .cart-drawer__checkout:hover {
+    background-color: rgba(var(--gold), 0.8);
+  }
+
+  .cart-drawer__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+    display: none;
+  }
+
+  .cart-drawer__overlay.active {
+    display: block;
+  }
+
+  @media screen and (max-width: 750px) {
+    .cart-drawer {
+      width: 100%;
+      right: -100%;
+    }
+  }
+</style>
+
+<div class="cart-drawer__overlay" id="cart-drawer-overlay"></div>
+
+<div class="cart-drawer" id="cart-drawer">
+  <div class="cart-drawer__header">
+    <h2 class="cart-drawer__title">{{ 'sections.cart.title' | t }}</h2>
+    <button type="button" class="cart-drawer__close" id="cart-drawer-close">
+      {% render 'icon-close' %}
+    </button>
+  </div>
+
+  <div class="cart-drawer__items" id="cart-drawer-items">
+    {%- if cart.item_count > 0 -%}
+      {%- for item in cart.items -%}
+        <div class="cart-drawer__item">
+          {%- if item.image -%}
+            <img src="{{ item.image | image_url: width: 100 }}" 
+                 alt="{{ item.title }}" 
+                 class="cart-drawer__item-image">
+          {%- endif -%}
+          <div class="cart-drawer__item-details">
+            <div class="cart-drawer__item-title">{{ item.product.title }}</div>
+            <div class="cart-drawer__item-price">{{ item.final_price | money }}</div>
+            <div>Qty: {{ item.quantity }}</div>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- else -%}
+      <p>{{ 'sections.cart.empty' | t }}</p>
+    {%- endif -%}
+  </div>
+
+  {%- if cart.item_count > 0 -%}
+    <div class="cart-drawer__footer">
+      <div class="cart-drawer__total">
+        <span>{{ 'sections.cart.subtotal' | t }}</span>
+        <span>{{ cart.total_price | money }}</span>
+      </div>
+      <a href="{{ routes.cart_url }}" class="cart-drawer__checkout">
+        {{ 'sections.cart.checkout' | t }}
+      </a>
+    </div>
+  {%- endif -%}
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const cartIcon = document.getElementById('cart-icon-bubble');
+    const cartDrawer = document.getElementById('cart-drawer');
+    const cartDrawerClose = document.getElementById('cart-drawer-close');
+    const cartDrawerOverlay = document.getElementById('cart-drawer-overlay');
+
+    if (cartIcon) {
+      cartIcon.addEventListener('click', function(e) {
+        e.preventDefault();
+        cartDrawer.classList.add('active');
+        cartDrawerOverlay.classList.add('active');
+      });
+    }
+
+    if (cartDrawerClose) {
+      cartDrawerClose.addEventListener('click', function() {
+        cartDrawer.classList.remove('active');
+        cartDrawerOverlay.classList.remove('active');
+      });
+    }
+
+    if (cartDrawerOverlay) {
+      cartDrawerOverlay.addEventListener('click', function() {
+        cartDrawer.classList.remove('active');
+        cartDrawerOverlay.classList.remove('active');
+      });
+    }
+  });
+</script>

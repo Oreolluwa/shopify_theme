@@ -1,0 +1,45 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "title": "Premium Spirits Collection",
+        "subtitle": "Discover our curated selection of fine wines and spirits",
+        "button_label": "Shop Now",
+        "button_link": "/collections/all",
+        "hero_height": 600,
+        "hero_height_mobile": 400,
+        "overlay_opacity": 40
+      }
+    },
+    "featured-products": {
+      "type": "featured-products",
+      "settings": {
+        "title": "Featured Products",
+        "subtitle": "Handpicked selection of our finest spirits",
+        "products_to_show": 4
+      }
+    },
+    "rich-text": {
+      "type": "rich-text",
+      "settings": {
+        "title": "Welcome to Our Liquor Store",
+        "text": "<p>We offer the finest selection of premium wines, whiskeys, and spirits from around the world. Our collection is carefully curated to bring you the best quality at competitive prices.</p>"
+      }
+    },
+    "featured-collection": {
+      "type": "featured-products",
+      "settings": {
+        "title": "Best Sellers",
+        "subtitle": "Most popular items this month",
+        "products_to_show": 8
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "featured-products",
+    "rich-text",
+    "featured-collection"
+  ]
+}

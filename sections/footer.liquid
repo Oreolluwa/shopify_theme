@@ -1,0 +1,308 @@
+{% comment %}
+  Footer Section
+{% endcomment %}
+
+{%- style -%}
+  .footer {
+    background-color: rgb(var(--black));
+    color: rgb(var(--white));
+    padding: 4rem 2rem 2rem;
+  }
+
+  .footer__content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+    max-width: var(--page-width);
+    margin: 0 auto;
+  }
+
+  @media screen and (min-width: 750px) {
+    .footer__content {
+      grid-template-columns: repeat(4, 1fr);
+      padding: 0 4rem;
+    }
+  }
+
+  .footer__block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer__heading {
+    color: rgb(var(--gold));
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .footer__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer__list-item {
+    margin-bottom: 1rem;
+  }
+
+  .footer__link {
+    color: rgb(var(--white));
+    text-decoration: none;
+    font-size: 1.4rem;
+    transition: color 0.3s ease;
+  }
+
+  .footer__link:hover {
+    color: rgb(var(--gold));
+  }
+
+  .footer__social {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .footer__social-link {
+    color: rgb(var(--white));
+    transition: color 0.3s ease;
+  }
+
+  .footer__social-link:hover {
+    color: rgb(var(--gold));
+  }
+
+  .footer__social-link svg {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+
+  .footer__bottom {
+    border-top: 1px solid rgba(var(--gold), 0.3);
+    margin-top: 3rem;
+    padding-top: 2rem;
+    text-align: center;
+    font-size: 1.2rem;
+    max-width: var(--page-width);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .footer__copyright {
+    color: rgba(var(--white), 0.7);
+  }
+
+  .footer__payment {
+    margin-top: 1rem;
+  }
+
+  .footer__newsletter {
+    margin-top: 1.5rem;
+  }
+
+  .footer__newsletter-form {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .footer__newsletter-input {
+    flex: 1;
+    padding: 1rem;
+    border: 1px solid rgba(var(--gold), 0.5);
+    background-color: transparent;
+    color: rgb(var(--white));
+    font-size: 1.4rem;
+  }
+
+  .footer__newsletter-button {
+    padding: 1rem 2rem;
+    background-color: rgb(var(--gold));
+    color: rgb(var(--black));
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    transition: background-color 0.3s ease;
+  }
+
+  .footer__newsletter-button:hover {
+    background-color: rgba(var(--gold), 0.8);
+  }
+{%- endstyle -%}
+
+<footer class="footer">
+  <div class="footer__content">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'link_list' -%}
+          <div class="footer__block" {{ block.shopify_attributes }}>
+            <h3 class="footer__heading">{{ block.settings.heading }}</h3>
+            {%- if block.settings.menu != blank -%}
+              <ul class="footer__list">
+                {%- for link in block.settings.menu.links -%}
+                  <li class="footer__list-item">
+                    <a href="{{ link.url }}" class="footer__link">{{ link.title }}</a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </div>
+
+        {%- when 'text' -%}
+          <div class="footer__block" {{ block.shopify_attributes }}>
+            <h3 class="footer__heading">{{ block.settings.heading }}</h3>
+            <div class="footer__text">{{ block.settings.subtext }}</div>
+            {%- if block.settings.show_social -%}
+              <ul class="footer__social">
+                {%- if settings.social_facebook_link != blank -%}
+                  <li>
+                    <a href="{{ settings.social_facebook_link }}" class="footer__social-link" target="_blank" rel="noopener">
+                      {% render 'icon-facebook' %}
+                    </a>
+                  </li>
+                {%- endif -%}
+                {%- if settings.social_instagram_link != blank -%}
+                  <li>
+                    <a href="{{ settings.social_instagram_link }}" class="footer__social-link" target="_blank" rel="noopener">
+                      {% render 'icon-instagram' %}
+                    </a>
+                  </li>
+                {%- endif -%}
+                {%- if settings.social_twitter_link != blank -%}
+                  <li>
+                    <a href="{{ settings.social_twitter_link }}" class="footer__social-link" target="_blank" rel="noopener">
+                      {% render 'icon-twitter' %}
+                    </a>
+                  </li>
+                {%- endif -%}
+              </ul>
+            {%- endif -%}
+          </div>
+
+        {%- when 'newsletter' -%}
+          <div class="footer__block" {{ block.shopify_attributes }}>
+            <h3 class="footer__heading">{{ block.settings.heading }}</h3>
+            <div class="footer__newsletter">
+              <p>{{ block.settings.subtext }}</p>
+              <form method="post" action="/contact#contact_form" class="footer__newsletter-form">
+                <input type="hidden" name="contact[tags]" value="newsletter">
+                <input type="email" 
+                       name="contact[email]" 
+                       class="footer__newsletter-input"
+                       placeholder="{{ 'newsletter.email_placeholder' | t }}"
+                       required>
+                <button type="submit" class="footer__newsletter-button">
+                  {{ 'newsletter.button_label' | t }}
+                </button>
+              </form>
+            </div>
+          </div>
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+
+  <div class="footer__bottom">
+    <p class="footer__copyright">
+      &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ 'footer.all_rights_reserved' | t }}
+    </p>
+    {%- if section.settings.show_payment_icons -%}
+      <div class="footer__payment">
+        {% render 'icon-payment' %}
+      </div>
+    {%- endif -%}
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "t:sections.footer.name",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "default": true,
+      "label": "t:sections.footer.settings.show_payment_icons.label"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "link_list",
+      "name": "t:sections.footer.blocks.link_list.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Quick links",
+          "label": "t:sections.footer.blocks.link_list.settings.heading.label"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "default": "footer",
+          "label": "t:sections.footer.blocks.link_list.settings.menu.label"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "t:sections.footer.blocks.text.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "About Us",
+          "label": "t:sections.footer.blocks.text.settings.heading.label"
+        },
+        {
+          "type": "richtext",
+          "id": "subtext",
+          "default": "<p>Share your brand story, mission, or values.</p>",
+          "label": "t:sections.footer.blocks.text.settings.subtext.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_social",
+          "default": true,
+          "label": "t:sections.footer.blocks.text.settings.show_social.label"
+        }
+      ]
+    },
+    {
+      "type": "newsletter",
+      "name": "t:sections.footer.blocks.newsletter.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Newsletter",
+          "label": "t:sections.footer.blocks.newsletter.settings.heading.label"
+        },
+        {
+          "type": "paragraph",
+          "id": "subtext",
+          "default": "Subscribe to get special offers and updates.",
+          "label": "t:sections.footer.blocks.newsletter.settings.subtext.label"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "link_list"
+      },
+      {
+        "type": "text"
+      },
+      {
+        "type": "newsletter"
+      }
+    ]
+  }
+}
+{% endschema %}
